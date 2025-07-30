@@ -1,48 +1,41 @@
 # Playlist Porter 🎶
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-username/your-repo-name)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Tkinter](https://img.shields.io/badge/UI-Tkinter-orange?style=for-the-badge)](https://docs.python.org/3/library/tkinter.html)
 
-Effortlessly transfer your Spotify playlists to YouTube Music with a single click. This app uses the official APIs of both services to securely browse your Spotify playlists and recreate them in your YouTube Music library.
+A simple desktop application to transfer your Spotify playlists to YouTube Music. This app provides a basic graphical user interface built with Python's standard GUI toolkit, Tkinter.
 
-![App Demo](https://via.placeholder.com/800x400.png?text=Your+App+Screenshot+Here)
+![App Screenshot](https://via.placeholder.com/600x400.png?text=Your+Tkinter+App+Screenshot)
 
 ***
 
 ## ## Features
 
--   **Secure Authentication**: Connects safely to your Spotify and Google accounts using OAuth 2.0. Your credentials are never stored.
--   **Playlist Discovery**: Automatically fetches and displays all your public and private Spotify playlists.
--   **One-Click Transfer**: Seamlessly recreates a selected Spotify playlist on YouTube Music.
--   **Smart Matching**: Uses a refined search algorithm to find the best possible match for each track, prioritizing official audio and artist channels.
--   **Responsive Design**: A clean, modern UI that works beautifully on both desktop and mobile devices.
+-   **Simple Desktop UI**: No need to use the command line. A straightforward window with an input field and a button.
+-   **Secure Authentication**: Uses a browser-based OAuth 2.0 flow to securely connect to your Spotify and Google accounts.
+-   **Easy Operation**: Just paste your Spotify playlist URL and click a button to start the transfer.
+-   **Smart Matching**: A refined search algorithm finds the best possible match for each track on YouTube.
 
 ***
 
 ## ## Tech Stack
 
-This project is a full-stack application built entirely within the Next.js ecosystem.
-
--   **Framework**: [Next.js](https://nextjs.org/) (React)
--   **Language**: [TypeScript](https://www.typescriptlang.org/)
--   **Styling**: [Tailwind CSS](https://tailwindcss.com/)
--   **Backend**: Next.js API Routes (Serverless Functions)
--   **Deployment**: [Vercel](https://vercel.com/)
+-   **Language**: **Python 3**
+-   **GUI Framework**: **Tkinter** (from Python's standard library)
+-   **Key Libraries**: `requests`, `spotipy`, `google-api-python-client`, `google-auth-oauthlib`
 
 ***
 
 ## ## Getting Started
 
-You can run your own instance of this project locally.
+Follow these steps to get the application running on your local machine.
 
 ### ### Prerequisites
 
--   [Node.js](https://nodejs.org/en/) (v18 or later)
--   [Git](https://git-scm.com/)
--   A Spotify Developer account and a Google Cloud Platform account to get API keys.
+-   Python 3.8 or later
+-   Pip package manager
+-   Git
 
 ### ### Installation
 
@@ -52,43 +45,38 @@ You can run your own instance of this project locally.
     cd your-repo-name
     ```
 
-2.  **Install dependencies:**
+2.  **Create and activate a virtual environment:**
     ```bash
-    npm install
+    # For macOS/Linux
+    python3 -m venv venv
+    source venv/bin/activate
+
+    # For Windows
+    python -m venv venv
+    .\venv\Scripts\activate
     ```
 
-3.  **Set up environment variables:**
-    Create a file named `.env.local` in the root of the project and add the variables listed below.
+3.  **Install dependencies:**
     ```bash
-    cp .env.example .env.local
+    pip install -r requirements.txt
     ```
 
-4.  **Run the development server:**
-    ```bash
-    npm run dev
-    ```
-    Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+4.  **Set up API Credentials:**
+    * **Spotify**:
+        1.  Go to the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/).
+        2.  Create an app and note the `Client ID` and `Client Secret`.
+        3.  Set the **Redirect URI** to `http://localhost:8888/callback`.
+    * **Google (YouTube)**:
+        1.  Go to the [Google Cloud Console](https://console.cloud.google.com/).
+        2.  Enable the **YouTube Data API v3**.
+        3.  Create OAuth 2.0 credentials for a **Desktop app**.
+        4.  Download the credentials file and save it as `client_secret.json` in the project's root directory.
 
 ***
 
-## ## Environment Variables
+## ## Usage
 
-To run this project, you need to add the following environment variables to your `.env.local` file.
+Run the main Python script from your terminal to launch the application window.
 
-| Variable              | Description                                                                                                                                                             |
-| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `APP_URL`             | The full URL of your application. For local development, this is `http://localhost:3000`.                                                                               |
-| `SPOTIFY_CLIENT_ID`   | Your client ID from the Spotify Developer Dashboard.                                                                                                                    |
-| `SPOTIFY_CLIENT_SECRET` | Your client secret from the Spotify Developer Dashboard.                                                                                                                |
-| `GOOGLE_CLIENT_ID`    | Your client ID from the Google Cloud Console.                                                                                                                           |
-| `GOOGLE_CLIENT_SECRET`  | Your client secret from the Google Cloud Console.                                                                                                                       |
-| `GOOGLE_API_KEY`      | Your simple API key from the Google Cloud Console, used for public search queries.                                                                                      |
-| `COOKIE_SECRET`       | A long, random, private string used to sign the session cookie. You can generate one using `openssl rand -base64 32`.                                                      |
-
-**Important**: In both your Spotify and Google API settings, you must add your callback URL to the list of authorized redirect URIs: `http://localhost:3000/api/auth/callback`.
-
-***
-
-## ## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE.md) file for details.
+```bash
+python main.py
