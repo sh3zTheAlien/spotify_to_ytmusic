@@ -11,8 +11,8 @@ class MyFrame(customtkinter.CTkFrame):
         self.label.grid(row=0, column=0, padx=20)
 
         #Layout the Spotify and Youtube Logo
-        spotify_image_path = "spotify_to_ytmusic/Images/spotify-icon.png"
-        youtube_image_path = "spotify_to_ytmusic/Images/ytmusic-icon.webp"
+        spotify_image_path = "/home/sh3zthealien/Documents/GitHub/spotify_to_ytmusic/Images/spotify-icon.png"
+        youtube_image_path = "/home/sh3zthealien/Documents/GitHub/spotify_to_ytmusic/Images/ytmusic-icon.webp"
 
         self.spotify_image = customtkinter.CTkImage(
             light_image=Image.open(spotify_image_path),
@@ -47,6 +47,7 @@ class MyFrame(customtkinter.CTkFrame):
 
 
     def exit_click(self):
+
         print("You Exited the App")
 
 
