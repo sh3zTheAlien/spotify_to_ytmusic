@@ -1,4 +1,5 @@
 import os
+from pprint import pprint
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from dotenv import load_dotenv
@@ -12,13 +13,15 @@ class Spotify:
         self.client_id = os.getenv("SPOTIFY_CLIENT_ID")
         self.client_secret = os.getenv("SPOTIFY_CLIENT_SECRET")
         self.auth_manager = SpotifyOAuth(client_id=self.client_id, client_secret=self.client_secret
-                                         ,redirect_uri=self.redirect_uri,
+                                         ,redirect_uri=self.redirect_uri,scope="playlist-read-private",
                                          cache_path=".cache")
         self.sp = spotipy.Spotify(auth_manager=self.auth_manager)
         self.user_id = self.sp.current_user()["id"]
 
     def get_playlists(self):
-        pass
+        playlists = self.sp.user_playlists(user=self.user_id)
+        user_playlists = [{"name": i["name"], "id": i["id"]} for i in playlists["items"]]
+        return user_playlists
 
-sptf = Spotify()
-print(sptf.user_id)
+sp = Spotify()
+pprint(sp.get_playlists())
