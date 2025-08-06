@@ -9,7 +9,7 @@ load_dotenv()
 
 # youtube authentication remember to add your client_id and secret to get it to work
 
-ytmusic = YTMusic('oauth.json',oauth_credentials=OAuthCredentials(client_id=os.getenv("CLIENT_ID"),client_secret=os.getenv("CLIENT_SECRET")))
+ytmusic = YTMusic('oauth.json',oauth_credentials=OAuthCredentials(client_id=os.getenv("YT_CLIENT_ID"),client_secret=os.getenv("YT_CLIENT_SECRET")))
 pprint(ytmusic.get_home())
 
 # spotify authentication remember to add your client_id and client_secret to get it to work
