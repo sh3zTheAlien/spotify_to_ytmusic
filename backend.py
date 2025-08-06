@@ -19,6 +19,7 @@ class Spotify:
         self.user_id = self.sp.current_user()["id"]
 
     def get_playlists(self):
+        """Returns an Array with a Hash Table of all User Playlists"""
         playlists = self.sp.user_playlists(user=self.user_id)
         user_playlists = [{"name": i["name"], "id": i["id"]} for i in playlists["items"]]
         return user_playlists
