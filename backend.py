@@ -17,6 +17,8 @@ class Spotify:
                                          cache_path=".cache")
         self.sp = spotipy.Spotify(auth_manager=self.auth_manager)
         self.user_id = self.sp.current_user()["id"]
+        self.song_uris = []
+        self.playlist_names = []
 
     def get_playlists(self):
         """Returns an Array with a Hash Table of all User Playlists"""
@@ -24,5 +26,11 @@ class Spotify:
         user_playlists = [{"name": i["name"], "id": i["id"]} for i in playlists["items"]]
         return user_playlists
 
-sp = Spotify()
-pprint(sp.get_playlists())
+    def selected_playlists(self, var, playlist_name):
+        """
+        Checks what playlists the user has selected.
+        """
+        if var.get() == 1:
+                self.playlist_names.append(playlist_name)
+        else:
+            self.playlist_names.remove(playlist_name)
