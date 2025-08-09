@@ -1,7 +1,10 @@
+import os
 import customtkinter as ctk
 from customtkinter import *
 from PIL import Image
 from backend import Spotify
+from dotenv import load_dotenv
+load_dotenv()
 
 class MyFrame(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
@@ -12,9 +15,9 @@ class MyFrame(ctk.CTkFrame):
         self.label = ctk.CTkLabel(self)
         self.label.grid(row=0, column=0, padx=20)
 
-        #Layout the Spotify and Youtube Logo
-        spotify_image_path = "/home/sh3zthealien/Documents/GitHub/spotify_to_ytmusic/Images/spotify-icon.png"
-        youtube_image_path = "/home/sh3zthealien/Documents/GitHub/spotify_to_ytmusic/Images/ytmusic-icon.webp"
+        #Layout the Spotify and YT Music Logo with your path from ur .env file
+        spotify_image_path = os.getenv("SPOTIFY_IMAGE_PATH")
+        youtube_image_path = os.getenv("YTMUSIC_IMAGE_PATH")
 
         self.spotify_image = ctk.CTkImage(
             light_image=Image.open(spotify_image_path),
@@ -52,14 +55,13 @@ class MyFrame(ctk.CTkFrame):
 
     def select_playlist(self):
         """
-        We gotta add some code to make it appear another window pop up.
+        Checks what playlists the user has selected.
         """
         child_window = ctk.CTkToplevel(self)
         child_window.title("Select Playlists")
         child_window.geometry("730x600")
         child_window.configure(bg="black")
         user_playlists = self.sp.get_playlists()
-        print(f"User Playlists:{user_playlists}")
         child_window.grab_set()
         child_window.focus_force()
 
@@ -74,16 +76,14 @@ class MyFrame(ctk.CTkFrame):
         print("You have Added to a Playlist")
 
     def exit_app(self,root):
+        """
+        Exits the given root window.
+        """
         root.destroy()
 
 class SpotifyApp(ctk.CTk):
     def __init__(self):
         super().__init__()
-        # add_playlist = ctk.CTkButton(child_window, height=55, text="Add Songs in Playlists", text_color=TEXT_COLOR,
-        #                              font=FONT, fg_color=FG_COLOR, hover_color=HOVER_COLOR,
-        #                              command=lambda window=child_window: self.spotify_client.add_in_playlists(
-        #                                  window=window))
-        #add_playlist.place(x=200, y=500)
         self.geometry("700x550")
         self.title("Spotify to Youtube Music")
         ctk.set_appearance_mode("dark")
