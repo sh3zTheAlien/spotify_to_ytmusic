@@ -55,7 +55,7 @@ class MyFrame(ctk.CTkFrame):
 
     def select_playlist(self):
         """
-        Checks what playlists the user has selected.
+        Displays a windows with the users' Spotify playlists that he want to transfer.
         """
         child_window = ctk.CTkToplevel(self)
         child_window.title("Select Playlists")
