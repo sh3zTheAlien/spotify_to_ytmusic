@@ -1,23 +1,21 @@
-import os
+import constants as const
 import customtkinter as ctk
 from customtkinter import *
 from PIL import Image
-from backend import Spotify
-from dotenv import load_dotenv
-load_dotenv()
+from spotify import SpotifyManager
 
 class MyFrame(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
 
         # add widgets onto the frame
-        self.sp = Spotify()
+        self.sp = SpotifyManager()
         self.label = ctk.CTkLabel(self)
         self.label.grid(row=0, column=0, padx=20)
 
         #Layout the Spotify and YT Music Logo with your path from ur .env file
-        spotify_image_path = os.getenv("SPOTIFY_IMAGE_PATH")
-        youtube_image_path = os.getenv("YTMUSIC_IMAGE_PATH")
+        spotify_image_path = const.SPOTIFY_IMAGE_PATH
+        youtube_image_path = const.YTMUSIC_IMAGE_PATH
 
         self.spotify_image = ctk.CTkImage(
             light_image=Image.open(spotify_image_path),
@@ -44,7 +42,7 @@ class MyFrame(ctk.CTkFrame):
         self.create_playlist_button = ctk.CTkButton(self, text="Create Playlist", command=self.create_playlist, fg_color="red")
         self.create_playlist_button.grid(row=2, column=0, padx=10, pady=10)
 
-        self.select_playlist_button = ctk.CTkButton(self, text="Select Playlist", command=self.select_playlist, fg_color="red")
+        self.select_playlist_button = ctk.CTkButton(self, text="Select Playlist", command=self.select_playlist_window, fg_color="red")
         self.select_playlist_button.grid(row=2, column=1, padx=10, pady=10)
 
         self.add_playlist_button = ctk.CTkButton(self, text="Add to Playlist", command=self.add_playlist, fg_color="red")
@@ -53,10 +51,8 @@ class MyFrame(ctk.CTkFrame):
     def create_playlist(self):
         print("Nice you've Created a Playlist")
 
-    def select_playlist(self):
-        """
-        Checks what playlists the user has selected.
-        """
+    def select_playlist_window(self):
+        """Pops up Select Playlists window and checks what playlists the user has selected."""
         child_window = ctk.CTkToplevel(self)
         child_window.title("Select Playlists")
         child_window.geometry("730x600")
@@ -76,9 +72,7 @@ class MyFrame(ctk.CTkFrame):
         print("You have Added to a Playlist")
 
     def exit_app(self,root):
-        """
-        Exits the given root window.
-        """
+        """Exits the given root window."""
         root.destroy()
 
 class SpotifyApp(ctk.CTk):
