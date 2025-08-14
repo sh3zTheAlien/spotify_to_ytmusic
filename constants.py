@@ -1,0 +1,12 @@
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+YT_CLIENT_ID = os.getenv("YT_CLIENT_ID")
+YT_CLIENT_SECRET = os.getenv("YT_CLIENT_SECRET")
+SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
+SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
+REDIRECT_URI = os.getenv("REDIRECT_URI")
+SPOTIFY_IMAGE_PATH = os.getenv("SPOTIFY_IMAGE_PATH")
+YTMUSIC_IMAGE_PATH = os.getenv("YTMUSIC_IMAGE_PATH")
+CHANNEL_ID = os.getenv("CHANNEL_ID")
