@@ -29,6 +29,3 @@ class MyApp(App):
 
     def exit_app(self):
         self.stop()
-
-if __name__ == "__main__":
-    MyApp().run()
