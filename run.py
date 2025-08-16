@@ -1,6 +1,4 @@
-from frontend_ui import SpotifyApp
-
-app = SpotifyApp()
+from Kivy.kivy import MyApp
 
 if __name__ == "__main__":
-    app.mainloop()
+    MyApp().run()
