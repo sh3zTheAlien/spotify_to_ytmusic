@@ -1,0 +1,56 @@
+<Button>:
+    font_size: 30
+    background_color: (235/255, 12/255, 12/255, 1)
+    size_hint: 0.6, 0.2
+    background_normal: ''
+    font_name: "Kivy/fonts/Cabin_Condensed-Bold.ttf"
+    bold: True
+
+<RoundedButton@Button>
+    background_color: (0,0,0,0)
+    background_normal: ""
+    canvas.before:
+        Color:
+            rgba: (148/255, 18/255, 9/255, 1) if self.state == 'down' else (235/255, 12/255, 12/255, 1)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [20]
+
+<FloatLayout>:
+    RoundedButton:
+        id: exit_app
+        text: "Exit App"
+        on_press: app.exit_app()
+        size_hint: 0.25, 0.1
+        pos_hint: {'center_x': 0.2, 'center_y': .9}
+
+    Image:
+        source: "Kivy/img/logo-rm.png"
+        pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+        size_hint: 0.7, 0.7
+        allow_stretch: True
+        keep_ratio: True
+
+
+    BoxLayout:
+        spacing: 20
+        size_hint: 1, 0.8  # width and height of the box
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        padding: 50, 0
+        orientation: 'horizontal'
+
+        RoundedButton:
+            id: select_plst
+            text: "Select a Playlist"
+            on_press: app.select_playlist()
+
+        RoundedButton:
+            id: add_plst
+            text: "Add in a Spotify Playlist"
+            on_press: app.add_playlist()
+
+        RoundedButton:
+            id: create_plst
+            text: "Create a Playlist in Spotify"
+            on_press: app.create_playlist()
