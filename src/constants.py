@@ -10,3 +10,14 @@ REDIRECT_URI = os.getenv("REDIRECT_URI")
 SPOTIFY_IMAGE_PATH = os.getenv("SPOTIFY_IMAGE_PATH")
 YTMUSIC_IMAGE_PATH = os.getenv("YTMUSIC_IMAGE_PATH")
 CHANNEL_ID = os.getenv("CHANNEL_ID")
+
+
+def ms_to_minutes_seconds(milliseconds):
+    """Convert milliseconds to MM:SS format"""
+    if milliseconds is None:
+        return "00:00"
+
+    total_seconds = milliseconds // 1000
+    minutes = total_seconds // 60
+    seconds = total_seconds % 60
+    return f"{minutes:02d}:{seconds:02d}"

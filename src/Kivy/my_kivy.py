@@ -3,7 +3,7 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.config import Config
 from kivy.graphics import RoundedRectangle
 from kivy.lang import Builder
-from spotify import SpotifyManager
+from src.spotify import SpotifyManager
 
 
 #(0,0) at kivy is at the bottom left

@@ -1,4 +1,4 @@
-import constants as const
+from src import constants as const
 from ytmusicapi import YTMusic, OAuthCredentials
 
 class YTManager:
@@ -11,3 +11,36 @@ class YTManager:
         res = self.ytmusic.get_library_playlists()
         ytmusic_playlists = [{"name": res[i]['title'], "id":res[i]["playlistId"]} for i in range(len(res))]
         return ytmusic_playlists
+
+    def search_playlist(self,playlist_id: str):
+        try:
+            searched_playlist = self.ytmusic.get_playlist(playlistId=playlist_id,limit=None)
+            return {"id":searched_playlist["id"],
+                     "title":searched_playlist["title"],
+                     "tracks":searched_playlist["tracks"]}
+        except KeyError:
+            return "Please provide a valid playlist id."
+
+    def search_songs(self,songs_to_search: list[str]):
+        """Returns a JSON of the searched songs
+           songs_to_search: a list of the song names you want to search"""
+        searched_songs = []
+        for song in songs_to_search:
+            searched_songs.append(self.ytmusic.search(query=song))
+        return searched_songs
+
+
+    def create_playlist(self,songs_ids: list[str]):
+        """Creates a playlist with the given song id's"""
+        new_playlist_id = self.ytmusic.create_playlist(title='Test',description='Testing the Playlist')
+        return self.ytmusic.add_playlist_items(playlistId=new_playlist_id,videoIds=songs_ids,duplicates=False)
+
+    def add_playlist(self):
+        pass
+
+# ytmus = YTManager()
+# print(ytmus.get_playlists())
+# print(ytmus.search_playlist("LM"))
+
+#print(ytmus.create_playlist(['7wtfhZwyrcc']))
+#print(ytmus.search_playlists(['believer','faded','blinding lights','i surrender']))
