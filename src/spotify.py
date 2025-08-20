@@ -25,8 +25,7 @@ class SpotifyManager:
         pass
 
     def search_song(self,song):
-        """Each song must have a name and an artist and maybe duration"""
-        return self.sp.search(q=f"track:{song}", limit=50, type="track")
+        return self.sp.search(q=f"track:{song}", limit=10, type="track")
 
     def create_playlist(self,song_ids):
         """Creates a playlist with the given song id's"""
@@ -36,10 +35,3 @@ class SpotifyManager:
 
     def add_playlist(self):
         pass
-
-    def selected_playlists(self, var, playlist_name):
-        """Checks what playlists the user has selected"""
-        if var.get() == 1:
-                self.playlist_names.append(playlist_name)
-        else:
-            self.playlist_names.remove(playlist_name)

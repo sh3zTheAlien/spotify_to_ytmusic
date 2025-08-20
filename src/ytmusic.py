@@ -13,15 +13,20 @@ class YTManager:
         return ytmusic_playlists
 
     def search_playlist(self,playlist_id: str):
+        """Returns an Array with a Hash Table with songs,artists from the searched playlist."""
         try:
             searched_playlist = self.ytmusic.get_playlist(playlistId=playlist_id,limit=None)
-            return {"id":searched_playlist["id"],
-                     "title":searched_playlist["title"],
-                     "tracks":searched_playlist["tracks"]}
+            songs = searched_playlist["tracks"]
+            return [{"title":songs[i]["title"],
+                     "artist":[artist["name"] for artist in songs[i]["artists"]] if songs[i].get("artists") else None,
+                     "album":songs[i]["album"]["name"] if songs[i].get("album") else None,
+                     "duration":songs[i].get("duration_seconds") or songs[i].get("duration")}
+                    for i in range(len(songs)) if songs]
         except KeyError:
             return "Please provide a valid playlist id."
 
     def search_songs(self,songs_to_search: list[str]):
+        #in progress
         """Returns a JSON of the searched songs
            songs_to_search: a list of the song names you want to search"""
         searched_songs = []
@@ -37,10 +42,3 @@ class YTManager:
 
     def add_playlist(self):
         pass
-
-# ytmus = YTManager()
-# print(ytmus.get_playlists())
-# print(ytmus.search_playlist("LM"))
-
-#print(ytmus.create_playlist(['7wtfhZwyrcc']))
-#print(ytmus.search_playlists(['believer','faded','blinding lights','i surrender']))
