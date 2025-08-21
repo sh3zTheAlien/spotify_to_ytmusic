@@ -18,7 +18,7 @@ class YTManager:
             searched_playlist = self.ytmusic.get_playlist(playlistId=playlist_id,limit=None)
             songs = searched_playlist["tracks"]
             return [{"title":songs[i]["title"],
-                     "artist":[artist["name"] for artist in songs[i]["artists"]] if songs[i].get("artists") else None,
+                     "artists":[artist["name"] for artist in songs[i]["artists"]] if songs[i].get("artists") else None,
                      "album":songs[i]["album"]["name"] if songs[i].get("album") else None,
                      "duration":songs[i].get("duration_seconds") or songs[i].get("duration")}
                     for i in range(len(songs)) if songs]

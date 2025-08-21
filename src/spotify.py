@@ -1,6 +1,7 @@
 from src import constants as const
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
+
 class SpotifyManager:
 
     def __init__(self):
@@ -24,10 +25,18 @@ class SpotifyManager:
     def search_playlist(self):
         pass
 
-    def search_song(self,song):
-        return self.sp.search(q=f"track:{song}", limit=10, type="track")
+    def search_song(self,song_title:str):
+        """Returns an Array with a Hash Table with song title,artist(s) from the searched song."""
+        query = f"track:{song_title}"
+        songs = self.sp.search(q=query, limit=10, type="track")["tracks"]["items"]
+        x = [{"title": songs[i]["name"],
+              "artists": [artist["name"] for artist in songs[i]["artists"]] if songs[i].get("artists") else None,
+              "album": songs[i]["album"]["name"] if songs[i].get("album") else None,
+              "duration": self.ms_to_minutes_seconds(int(songs[i]["duration_ms"]))}
+               for i in range(len(songs)) if songs]
+        return x
 
-    def create_playlist(self,song_ids):
+    def create_playlist(self,song_ids: list[str]):
         """Creates a playlist with the given song id's"""
         #maybe add a name:str and public:bool as input
         new_playlist = self.sp.user_playlist_create(user=self.user_id,name="Test",public=False)
@@ -35,3 +44,11 @@ class SpotifyManager:
 
     def add_playlist(self):
         pass
+
+    def ms_to_minutes_seconds(self,milliseconds: int):
+        """Convert milliseconds to MM:SS format"""
+        if milliseconds is None:
+            return ValueError("Mileseconds can't be None")
+
+        total_seconds = milliseconds // 1000
+        return f"{total_seconds}"

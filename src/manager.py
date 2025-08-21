@@ -1,19 +1,16 @@
 from ytmusic import YTManager
 from spotify import SpotifyManager
+from rapidfuzz import fuzz
+
+def validate_song(query_song,target_song):
+    """Validates the Similarity between 2 strings in range of 0 - 100."""
+    name_score = fuzz.token_set_ratio(query_song, target_song)
+    print(f"Searched:{query_song} | Validated: {target_song} | Similarity: {name_score}")
+    return name_score
 
 ytmusic = YTManager()
 spotify = SpotifyManager()
 
-#print(ytmusic.get_playlists())
-searched_playlist = ytmusic.search_playlist('LM') # we need the playlist id to be returned when a playlist gets pressed
-#for track in searched_playlist["tracks"]:
-#print(spotify.search_song(searched_playlist["tracks"][0]["title"]))
-print(ytmusic.search_songs(["Interstellar"]))
-
-#when selected playlist for transfer
-#get the playlists songs,ids info # Done with YTMusic
-#search given songs in ytmusic # Do it in Spotify
-#validate and then
-#Validation:
-#if song duration,aritst name,title is the same then pass else cut
-#create playlist or add to playlist
+searched_ytplaylist = ytmusic.search_playlist('LM')
+searched_song = spotify.search_song(song_title=searched_ytplaylist[0]["title"])
+print(f"YTPLAYLIST: \n{searched_ytplaylist}\n\n SONG: \n{searched_song}")
