@@ -1,4 +1,4 @@
-from src import constants as const
+import constants as const
 from ytmusicapi import YTMusic, OAuthCredentials
 
 class YTManager:

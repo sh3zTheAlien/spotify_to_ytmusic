@@ -1,4 +1,4 @@
-from src import constants as const
+import constants as const
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
@@ -29,12 +29,12 @@ class SpotifyManager:
         """Returns an Array with a Hash Table with song title,artist(s) from the searched song."""
         query = f"track:{song_title}"
         songs = self.sp.search(q=query, limit=10, type="track")["tracks"]["items"]
-        x = [{"title": songs[i]["name"],
+        playlist_songs = [{"title": songs[i]["name"],
               "artists": [artist["name"] for artist in songs[i]["artists"]] if songs[i].get("artists") else None,
               "album": songs[i]["album"]["name"] if songs[i].get("album") else None,
               "duration": self.ms_to_minutes_seconds(int(songs[i]["duration_ms"]))}
                for i in range(len(songs)) if songs]
-        return x
+        return playlist_songs
 
     def create_playlist(self,song_ids: list[str]):
         """Creates a playlist with the given song id's"""
