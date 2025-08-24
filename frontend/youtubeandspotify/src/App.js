@@ -2,6 +2,7 @@
 import { Card } from 'primereact/card';
 import { useState, useEffect } from 'react';
 import { getUserPlaylists } from './requests';
+import { Menubar } from 'primereact/menubar';
 function App() {
   const [playlists, setPlaylists] = useState([]);
   
@@ -12,17 +13,15 @@ function App() {
 
   useEffect(()=>{
     fetchPlaylists();
-  },[playlists])
+  },[])
   return (
     <div className="App">
       <header className="App-header">
       </header>
+      <Menubar model={[{label: 'Home', icon: 'pi pi-fw pi-home'}, {label: 'Playlists', icon: 'pi pi-fw pi-list'}, {label: 'About', icon: 'pi pi-fw pi-info-circle'}]} 
+      style={{marginBottom: '1rem', backgroundColor: 'black', color: 'white',height:'2rem'}}/>
       <div className="card-container" 
       style={{display: 'flex', flexWrap: 'wrap', gap: '1rem', padding: '1rem', backgroundColor: 'grey', alignItems: 'center', justifyContent: 'center'}}>
-        <Card title="Welcome to Spotify to YouTube Music" className="welcome-card" 
-        style={{backgroundColor: "black", color: "white"}}>
-          <p>This application allows you to transfer your playlists from Spotify to YouTube Music.</p>
-        </Card>
         {playlists.map(playlist => (
           <Card key={playlist.id} title={playlist.name} className="playlist-card" 
           style={{backgroundColor: "black", color: "white"}}>
@@ -30,7 +29,6 @@ function App() {
           </Card>
         ))}
         </div>
-        <Card>Hello</Card>
     </div>
   );
 }
