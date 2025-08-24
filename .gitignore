@@ -187,3 +187,6 @@ fabric.properties
 
 # idea folder, uncomment if you don't need it
 .idea
+
+# front end
+frontend/youtubeandspotify/node_modules/

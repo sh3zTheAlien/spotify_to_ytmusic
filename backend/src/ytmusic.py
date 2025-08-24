@@ -4,7 +4,7 @@ from ytmusicapi import YTMusic, OAuthCredentials
 class YTManager:
 
     def __init__(self):
-        self.ytmusic = YTMusic('oauth.json',oauth_credentials=OAuthCredentials(client_id=const.YT_CLIENT_ID,client_secret=const.YT_CLIENT_SECRET))
+        self.ytmusic = YTMusic(const.OAUTH_JSON_PATH,oauth_credentials=OAuthCredentials(client_id=const.YT_CLIENT_ID,client_secret=const.YT_CLIENT_SECRET))
 
     def get_playlists(self):
         """Returns an Array with a Hash Table of All user playlists"""
