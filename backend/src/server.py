@@ -2,12 +2,14 @@ from flask import Flask
 from flask_cors import CORS, cross_origin
 from ytmusic import YTManager
 import json
+from flask_cors import CORS, cross_origin
 
 ytmusic = YTManager()
 
 app = Flask(__name__)
-cors = CORS(app) # allow CORS for all domains on all routes.
+cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 @app.route("/")
 @cross_origin()
